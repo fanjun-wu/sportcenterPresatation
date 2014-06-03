@@ -26,8 +26,6 @@ public class CacheRecordController {
 	@RequestMapping(value="/getCacheMap", method=RequestMethod.GET)
 	public @ResponseBody  List<CacheRecord> cacheMap() {
 		logger.info("cache map!");
-				
-		//System.out.println("cache map size: "+cacheRecordService.getCacheRecords().size());
 		
 		return (List)cacheRecordService.getCacheRecords();
 				
@@ -41,9 +39,6 @@ public class CacheRecordController {
 		return "frontend/cache-map";
 		
 	}
-	
-	
-	
 	
 
 }

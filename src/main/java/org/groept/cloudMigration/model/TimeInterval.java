@@ -26,9 +26,7 @@ public class TimeInterval
 	 
 	@DBRef(lazy=true)
 	private Set<Reservation> reservation;
-	 
-	
- 
+	 	
 	public TimeInterval(int startTime, Date date) {
 		 
 		this.startTime = startTime;

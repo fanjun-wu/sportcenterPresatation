@@ -135,6 +135,7 @@
 							// $(".datepicker").datepicker({ dateFormat: 'yy-mm-dd' });
 							
 							$(".datepicker").datepicker(
+									/* {minDate: 0}, */
 									{
 										//dateFormat: 'dd/mm/yy',
 										dateFormat: 'yy-mm-dd',

@@ -15,7 +15,5 @@ public class CourtComparator implements Comparator<Court>{
 				
 	}
 	
-	
-	
 
 }

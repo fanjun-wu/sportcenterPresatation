@@ -153,7 +153,12 @@ public final class hallList_jsp extends org.apache.jasper.runtime.HttpJspBase
           out.write("\t\t\t\t\t\t\t<td><a href=\"showhallCourtList?hallId=");
           out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${hall.id}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
           out.write("\">Court List</a></td>\r\n");
-          out.write("\t\t\t\t\t\t\t\r\n");
+          out.write("\t\t\t\t\t\t\t<td><a href=\"setAdmin?hallId=");
+          out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${hall.id}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
+          out.write("\">SetAdmin</a></td>\r\n");
+          out.write("\t\t\t\t\t\t\t<td><a href=\"checkAdmin?hallId=");
+          out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${hall.id}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
+          out.write("\">CheckAdmin</a></td>\r\n");
           out.write("\t\t\t\t\t\t</tr>\r\n");
           out.write("\t\t\t\t\t");
           int evalDoAfterBody = _jspx_th_c_005fforEach_005f0.doAfterBody();

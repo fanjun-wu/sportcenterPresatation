@@ -30,23 +30,15 @@ public class AdminController {
 	
 	private AdminService adminService;
 	
-	//@Autowired
-	//private CacheRecordService cacheRecordService; 
-	
-
-	
 	@RequestMapping(value={"/main","/main/"}, method=RequestMethod.GET)
 	public String MainControl() {
-		return "backend-admin-home";
-	
+		return "backend-admin-home";	
 	}
 	
 
 	@RequestMapping(value="/adminList", method=RequestMethod.GET)
 	public ModelAndView list() {
 		logger.info("Listing admins.");
-		
-		
 		Collection<Admin> admins = adminService.getAdmins();
 		Map<String,Object>model = new HashMap<String,Object>();
 		model.put("admins", admins);
@@ -65,13 +57,9 @@ public class AdminController {
 		
 		System.out.println("Admin: "+admin.toString());
 		
-		
 		Map<String,Object>modelAndView = new HashMap<String,Object>();
 		modelAndView.put("admin", admin);
 		return new ModelAndView("admin/modifyAdmin", modelAndView);
-		//return new ModelAndView("admin/newAdmin", modelAndView);
-		
-		
 		
 	}
 	

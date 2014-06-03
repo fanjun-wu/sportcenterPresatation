@@ -18,8 +18,6 @@ public class Subscriber extends Person
 		
 	}
 
-
-	
 	public void setReservation(Set<Reservation> reservation) {
 		this.reservation = reservation;
 	}
@@ -101,7 +99,7 @@ public class Subscriber extends Person
 	public String toString()
 	{
 		String sub=" "+getName();
-		//String sub=" HIHIHI";
+		
 		return sub;
 		
 		

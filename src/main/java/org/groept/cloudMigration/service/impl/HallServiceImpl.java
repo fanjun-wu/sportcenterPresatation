@@ -24,7 +24,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional
 public class HallServiceImpl implements HallService {
 
 	@Autowired
@@ -51,8 +50,7 @@ public class HallServiceImpl implements HallService {
 	public void editHall(Hall hall) {
 		// TODO Auto-generated method stub
 		
-		System.out.println("Edit Hall: "+hall.getId());
-		
+	   	System.out.println("Edit Hall: "+hall.getId());
 		
 		  Query query = new Query(Criteria.where("id").is(hall.getId()));
 		  Update update=new Update();
@@ -70,8 +68,6 @@ public class HallServiceImpl implements HallService {
 	public void deleteHall(ObjectId hallId) {
 		// TODO Auto-generated method stub
 		
-		
-		
 		System.out.println("delete Hall");
 		hallDao.delete(hallDao.findById(hallId));
 	}
@@ -85,9 +81,6 @@ public class HallServiceImpl implements HallService {
 		
 		CacheRecord cacheRecord=new CacheRecord(0,1,new java.util.Date());
 		cacheRecordService.saveCacheRecord(cacheRecord);
-	
-		
-		
 		return hallDao.findById(hallId);
 	}
 	
@@ -96,25 +89,17 @@ public class HallServiceImpl implements HallService {
 	public List<Hall> getHalls() {
 		// TODO Auto-generated method stub
 		
-		
 		return (List<Hall>) hallDao.findAll();
 	}
 	@Override
 	public void addCourt(ObjectId hallId, ObjectId courtId) {
 		// TODO Auto-generated method stub
 		
-		Court c=courtDao.findById(courtId);
-		
+		Court c=courtDao.findById(courtId);		
 		Hall h=hallDao.findById(hallId);
 		c.setHall(h);
-		
-		//h.addCourt(c);
-		
-		//hallDao.save(h);
 		courtDao.save(c);
-		
-
-	}
+		}
 	
 	
 	
@@ -125,12 +110,9 @@ public class HallServiceImpl implements HallService {
 		
 		Query query = new Query(Criteria.where("hall").is(h));
 		
-		
 		return (List<Court>)mongoTemplate.find(query, Court.class);
 	
 	}
-	
-	
 	
 
 }

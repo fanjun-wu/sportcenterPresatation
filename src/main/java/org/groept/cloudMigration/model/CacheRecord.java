@@ -61,6 +61,4 @@ public class CacheRecord {
 		this.pageRequestTime = pageRequestTime;
 	}
 
-		
-
 }

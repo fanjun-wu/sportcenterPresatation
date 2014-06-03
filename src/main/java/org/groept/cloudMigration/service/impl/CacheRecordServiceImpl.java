@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional
 public class CacheRecordServiceImpl implements CacheRecordService {
 
 	@Autowired
@@ -20,26 +19,20 @@ public class CacheRecordServiceImpl implements CacheRecordService {
 	
 	@Override
 	public void saveCacheRecord(CacheRecord cacheRecord) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub		
 		cacheRecordDao.save(cacheRecord);
-
 	}
 
 	@Override
 	public void deleteCacheRecord(ObjectId cacheRecordId) {
 		// TODO Auto-generated method stub
-		
 		cacheRecordDao.delete(cacheRecordDao.findById(cacheRecordId));
-
 	}
 
 	@Override
 	public CacheRecord getCacheRecord(ObjectId CacheRecordId) {
-		// TODO Auto-generated method stub
-		
-		return cacheRecordDao.findById(CacheRecordId);
-				
+		// TODO Auto-generated method stub		
+		return cacheRecordDao.findById(CacheRecordId);				
 	}
 
 	@Override

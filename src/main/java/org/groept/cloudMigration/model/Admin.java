@@ -1,6 +1,7 @@
 package org.groept.cloudMigration.model;
 
 
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -10,16 +11,23 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Admin extends Person
 {
 	
+	private String privilege;	
+	private ObjectId hallId;
 	
-	private String privilege;
-	
-	
-	
-					
-	@DBRef(lazy=true) 
-	private Hall hall;
+	public ObjectId getHallId() {
+		if(hallId==null)
+		{
+			hallId=new ObjectId();
+		}
+		return hallId;
+	}
 
-	
+
+	public void setHallId(ObjectId hallId) {
+		this.hallId = hallId;
+	}
+
+
 	public String getPrivilege() {
 		return privilege;
 	}
@@ -48,52 +56,6 @@ public class Admin extends Person
 	}
 
 
-	
-	
-	
-	public void basicSetHall(Hall myHall) {
-		if (this.hall != myHall) {
-			if (myHall != null){
-				if (this.hall != myHall) {
-					Hall oldhall = this.hall;
-					this.hall = myHall;
-					if (oldhall != null)
-						oldhall.unsetAdmin();
-				}
-			}
-		}	
-	}
-	
-
-
-	
-
-	public Hall getHall() {
-		return this.hall;	
-	}
-	
-	
-	public void setHall(Hall hall) {
-		this.hall = hall;
-	}
-	
-	/*public void setHall(Hall myHall) {
-		this.basicSetHall(myHall);
-		myHall.basicSetAdmin(this);
-			
-	}*/
-	
-
-	
-	
-	public void unsetHall() {
-		if (this.hall == null)
-			return;
-		Hall oldhall = this.hall;
-		this.hall = null;
-		oldhall.unsetAdmin();	
-	}
-
 	@Override
 	public String toString()
 	{
@@ -102,8 +64,6 @@ public class Admin extends Person
 		
 	}
 
-	
-	
 	
 }
 

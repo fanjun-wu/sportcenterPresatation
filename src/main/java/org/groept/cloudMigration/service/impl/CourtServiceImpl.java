@@ -28,7 +28,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional
 public class CourtServiceImpl implements CourtService{
 
 	@Autowired
@@ -55,7 +54,6 @@ public class CourtServiceImpl implements CourtService{
 		// TODO Auto-generated method stub
 		
 		  System.out.println("inside editCourt():  "+court.getId());	
-		  
 		 
 		  Query query = new Query(Criteria.where("id").is(court.getId()));
 		  Update update=new Update();
@@ -98,7 +96,6 @@ public class CourtServiceImpl implements CourtService{
 		
 		return (List) courtDao.findAll();
 	}
-	
 	
 	
 	@Override
@@ -145,7 +142,6 @@ public class CourtServiceImpl implements CourtService{
 		Court c=courtDao.findById(courtId);
 		
 		Query query = new Query(Criteria.where("court").is(c));
-		
 		
 		return (List<Reservation>)mongoTemplate.find(query, Reservation.class);
 	

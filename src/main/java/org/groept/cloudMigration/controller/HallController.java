@@ -38,10 +38,12 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.bson.types.ObjectId;
+import org.groept.cloudMigration.model.Admin;
 import org.groept.cloudMigration.model.CacheRecord;
 import org.groept.cloudMigration.model.Capability;
 import org.groept.cloudMigration.model.Court;
 import org.groept.cloudMigration.model.Hall;
+import org.groept.cloudMigration.service.AdminService;
 import org.groept.cloudMigration.service.CacheRecordService;
 import org.groept.cloudMigration.service.CapabilityService;
 import org.groept.cloudMigration.service.CourtService;
@@ -62,12 +64,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-
-
-
-
-
-
 @Controller
 @RequestMapping("/admin")
 public class HallController  {
@@ -79,7 +75,8 @@ private static final Logger logger = LoggerFactory.getLogger(HallController.clas
 	private CourtService courtService;
 	@Autowired
 	private CapabilityService capabilityService;
-	
+	@Autowired
+	private AdminService adminService;
 	@Autowired
 	private MongoTemplate mongoTemplate;
 	
@@ -94,7 +91,6 @@ private static final Logger logger = LoggerFactory.getLogger(HallController.clas
 		System.out.println("getting hall list");
 		
 		List<Hall> halls = hallService.getHalls();
-		//Collection<Hall> halls=null;
 		Map<String,Object>model = new HashMap<String,Object>();
 		model.put("halls", halls);
 		return new ModelAndView("hall/hallList", model);
@@ -115,16 +111,9 @@ private static final Logger logger = LoggerFactory.getLogger(HallController.clas
 	public ModelAndView fetchHall(@RequestParam("hallId") ObjectId hallId) {
 		logger.info("Fetching hall " + hallId);
 		Hall hall = hallService.getHall(hallId);
-		
-		
-		System.out.println("Hall Info: "+hall.getId()+"  "+hall.getName());
-		
-		
 
 		CacheRecord cacheRecord=new CacheRecord(1,0,new java.util.Date());
 		cacheRecordService.saveCacheRecord(cacheRecord);
-				
-		
 		Map<String,Object>modelAndView = new HashMap<String,Object>();
 		modelAndView.put("hall", hall);
 		
@@ -160,19 +149,6 @@ private static final Logger logger = LoggerFactory.getLogger(HallController.clas
 			          }
 
 					
-		/*		//concurrent modification exception	
-					for(ObjectId i :ids)
-					{
-						if(i.equals(ct.getId()))
-						{
-							ids.remove(i);
-						}
-					}
-					
-			*/
-			
-					
-					
 					  Query query3 = new Query(Criteria.where("id").is(cap.getId()));
 					  Update update3=new Update();
 					  update3.set("courts", ids);
@@ -188,36 +164,6 @@ private static final Logger logger = LoggerFactory.getLogger(HallController.clas
 		
 		
 		System.out.println("remove the court in this hall for this capability before delete the hall");
-		/*
-		for(Capability cp:(List<Capability>)capabilityService.getCapabilities())
-		{			
-			Set<ObjectId> objTemp=new HashSet<ObjectId>();
-			for(ObjectId obj:cp.getCourts())
-			{				
-				boolean t=false;
-				for(Court ct:(List<Court>)courtService.getCourts())
-				{
-					if(ct.getHall().getId().equals(hall.getId()))
-						if(obj.equals(ct.getId()))
-						{
-							t=true;
-									//	cp.getCourts().remove(obj);       //HashSet remove not working??
-
-						}
-								
-				}
-				
-				if(t==false)
-					objTemp.add(obj);
-				
-			}
-			
-			cp.setCourts(objTemp);
-			
-		}
-		*/
-		
-		
 		
 		hallService.deleteHall(hallId);
 		return "redirect:hallList";
@@ -229,9 +175,6 @@ private static final Logger logger = LoggerFactory.getLogger(HallController.clas
 		Hall hall = hallService.getHall(hallId);
 		Collection<Court> courts = courtService.getCourts();
 		
-		
-		
-		
 		Map<String,Object>modelAndView = new HashMap<String,Object>();
 		modelAndView.put("hall", hall);
 		modelAndView.put("courts", courts);
@@ -240,18 +183,10 @@ private static final Logger logger = LoggerFactory.getLogger(HallController.clas
 	
 	
 	
-	
-	
-	
-	
-	
-	
 	@RequestMapping(value="/hallAddCourt", method=RequestMethod.GET)
 	public String hallAddCourt(@RequestParam("hallId") ObjectId hallId,@RequestParam("courtId") ObjectId courtId) {
 		logger.info("Add hall to court " + hallId);
 		hallService.addCourt(hallId, courtId);
-		
-		
 		return "redirect:hallList";
 	}
 	
@@ -276,25 +211,21 @@ private static final Logger logger = LoggerFactory.getLogger(HallController.clas
 		System.out.println("Create Hall");
 		UUID uniqueKey1= UUID.randomUUID();
 		UUID uniqueKey2= UUID.randomUUID();
-		//String key=uniqueKey1.toString()+uniqueKey2.toString();
-		
-		
-		
+
 		String key0=uniqueKey1.toString();
 		String key1=key0.replaceAll("\\W","");	//remove none character
 		String key2=key1.substring(0, Math.min(key0.length(), 24));
 		
 		System.out.println("Hall Id: "+key2);
 		
-		
 		ObjectId objid=new ObjectId(key2);
 		
 		hall.setId(objid);
 		
-		
 		hallService.saveHall(hall);
 		return "redirect:hallList";
 	}
+	
 	
 	@RequestMapping(value="/updateHall", method=RequestMethod.POST)
 	public String updateHall(@ModelAttribute("hall") Hall hall,
@@ -307,8 +238,6 @@ private static final Logger logger = LoggerFactory.getLogger(HallController.clas
 	
 	@RequestMapping(value="/CreatCourtInHall", method=RequestMethod.GET)
 	public ModelAndView CreatCourtInHall(@RequestParam("hallId") ObjectId hallId) {
-		
-		
 
 		Court court = new Court();
 		Map<String,Object>model = new HashMap<String,Object>();
@@ -324,21 +253,63 @@ private static final Logger logger = LoggerFactory.getLogger(HallController.clas
 		
 		Hall hall =hallService.getHall(hallId);
 		court.setHall(hall);
-		//hall.addCourt(court);
-		//List<Court> courts=hall.getCourts();
-		
 		courtService.saveCourt(court);
-		
-		
-		/*  Query query = new Query(Criteria.where("name").is(hall.getName()));
-		  Update update=new Update();
-		  update.set("courts", courts);
-		  mongoTemplate.updateFirst(query, update, Hall.class);*/
-		
-		
-		//hallService.saveHall(hall);
 		return "redirect:courtList";
 	}
 	
+	@RequestMapping(value="/setAdmin", method=RequestMethod.GET)
+	public ModelAndView AdminList(@RequestParam("hallId") ObjectId hallId) {
+		logger.info("Listing capabilities.");
+		Collection<Admin> admins = adminService.getAdmins();
+		Map<String,Object>model = new HashMap<String,Object>();
+		model.put("hallId",hallId);
+		model.put("admins", admins);
+		return new ModelAndView("hall/adminList", model);
+	}
 	
+	@RequestMapping(value="/AdminLink", method=RequestMethod.GET)
+	public String AdminLink(@RequestParam("hallId") ObjectId hallId,@RequestParam("adminId") ObjectId adminId) {
+		
+		Hall h =hallService.getHall(hallId);
+		Admin a= adminService.getAdmin(adminId);
+		
+		Collection<Admin> admins = adminService.getAdmins();
+		for(Admin admin: admins)
+			
+		{
+			System.out.println("pa1   "+admin.getHallId());
+			System.out.println("pa2   "+hallId);
+			if(admin.getHallId().equals(hallId))
+			{
+				admin.setHallId(null);
+				adminService.saveAdmin(admin);
+				System.out.println("pa2  set");
+			}
+		}
+		
+		a.setHallId(h.getId());
+		
+		adminService.saveAdmin(a);
+		
+		return "redirect:hallList";
+	}
+	
+	@RequestMapping(value="/checkAdmin", method=RequestMethod.GET)
+	public ModelAndView checkAdmin(@RequestParam("hallId") ObjectId hallId) {
+		logger.info("Listing capabilities.");
+		Collection<Admin> admins = adminService.getAdmins();
+		Admin aa= new Admin();
+		for(Admin a: admins)			
+		{
+			if(a.getHallId().equals(hallId))
+			{
+				aa=a;
+			}
+		}
+		
+		Map<String,Object>model = new HashMap<String,Object>();
+		model.put("admin", aa);
+		return new ModelAndView("hall/checkAdmin", model);
+	}
+
 }

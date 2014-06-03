@@ -26,7 +26,7 @@
 				</tr>
 				</thead>
 				<c:forEach items="${reservations}" var="reservation">
-					<tr class="hoverable" id="id${reservation.id}" onClick="document.location.href = 'getReservation?reservationId=${reservation.id}';">
+					<tr class="hoverable" id="id${reservation.id}" <%-- onClick="document.location.href = 'getReservation?reservationId=${reservation.id}';" --%>>
 						<td>${reservation.discription}</td>
 						<td>${reservation.tips}</td>
 						<%-- <td><a href="showTimeIntervalList?reservationId=${reservation.id}">Add TImeInterval</a></td> --%>

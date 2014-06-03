@@ -18,22 +18,14 @@ public class Capability
 	@Id
     private ObjectId id;
 	
-	
 	private String resource;
 
-	
 	private String conditionCap;
 	
 	private String discriptionCap;
 	 
-	 
-
-	//@DBRef
-	/*@DBRef (lazy = true)
-	private Set<Court> court;*/
-
-	
 	private Set<ObjectId> courts;
+
 	
 	public void addCourt(Court court)
 	{
@@ -58,11 +50,6 @@ public class Capability
 	public void setCourts(Set<ObjectId> court) {
 		this.courts = court;
 	}
-
-
-
-
-
 
 
 	
@@ -143,9 +130,6 @@ public class Capability
 		this.id = null;	
 	}
 
-	
-
-	
 
 
 	public void unsetResource() {
@@ -162,73 +146,6 @@ public class Capability
 		this.discriptionCap = "";	
 	}
 
-	
-
-	/*public void setCourt(Set<Court> court) {
-		this.court = court;
-	}
-
-
-	public Set<Court> getCourt() {
-		if(this.court == null) {
-				this.court = new HashSet<Court>();
-		}
-		return (Set<Court>) this.court;	
-	}
-	
-
-
-	
-	
-
-	public void addAllCourt(Set<Court> newCourt) {
-		if (this.court == null) {
-			this.court = new HashSet<Court>();
-		}
-		for (Court tmp : newCourt)
-			tmp.addCapability(this);
-			
-	}
-	
-	
-	
-	
-
-	public void removeAllCourt(Set<Court> newCourt) {
-		if(this.court == null) {
-			return;
-		}
-		
-		this.court.removeAll(newCourt);	
-	}
-	
-
-	
-	
-	
-
-
- 
-	public void addCourt(Court newCourt) {
-		if(this.court == null) {
-			this.court = new HashSet<Court>();
-		}
-		
-		if (this.court.add(newCourt))
-			newCourt.addCapability(this);	
-	}
-
-
-
-public void removeCourt(Court oldCourt) {
-		if(this.court == null)
-			return;
-		
-		if (this.court.remove(oldCourt))
-			oldCourt.removeCapability(this);
-			
-	}
-*/
 	
 	
 }

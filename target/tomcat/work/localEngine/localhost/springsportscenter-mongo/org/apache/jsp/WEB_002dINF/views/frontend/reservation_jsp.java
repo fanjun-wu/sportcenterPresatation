@@ -209,6 +209,7 @@ public final class reservation_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\t\t\t\t\t\t\t// $(\".datepicker\").datepicker({ dateFormat: 'yy-mm-dd' });\n");
       out.write("\t\t\t\t\t\t\t\n");
       out.write("\t\t\t\t\t\t\t$(\".datepicker\").datepicker(\n");
+      out.write("\t\t\t\t\t\t\t\t\t{minDate: 0},\n");
       out.write("\t\t\t\t\t\t\t\t\t{\n");
       out.write("\t\t\t\t\t\t\t\t\t\t//dateFormat: 'dd/mm/yy',\n");
       out.write("\t\t\t\t\t\t\t\t\t\tdateFormat: 'yy-mm-dd',\n");
@@ -579,7 +580,7 @@ public final class reservation_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.apache.tiles.jsp.taglib.InsertDefinitionTag _jspx_th_tiles_005finsertDefinition_005f0 = new org.apache.tiles.jsp.taglib.InsertDefinitionTag();
     org.apache.jasper.runtime.AnnotationHelper.postConstruct(_jsp_annotationprocessor, _jspx_th_tiles_005finsertDefinition_005f0);
     _jspx_th_tiles_005finsertDefinition_005f0.setJspContext(_jspx_page_context);
-    // /WEB-INF/views/frontend/reservation.jsp(466,0) name = name type = java.lang.String reqTime = true required = true fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/views/frontend/reservation.jsp(467,0) name = name type = java.lang.String reqTime = true required = true fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_tiles_005finsertDefinition_005f0.setName("defaultTemplate");
     _jspx_th_tiles_005finsertDefinition_005f0.setJspBody(new Helper( 0, _jspx_page_context, _jspx_th_tiles_005finsertDefinition_005f0, null));
     _jspx_th_tiles_005finsertDefinition_005f0.doTag();
@@ -596,7 +597,7 @@ public final class reservation_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.apache.jasper.runtime.AnnotationHelper.postConstruct(_jsp_annotationprocessor, _jspx_th_tiles_005fputAttribute_005f0);
     _jspx_th_tiles_005fputAttribute_005f0.setJspContext(_jspx_page_context);
     _jspx_th_tiles_005fputAttribute_005f0.setParent(_jspx_parent);
-    // /WEB-INF/views/frontend/reservation.jsp(467,1) name = name type = java.lang.String reqTime = true required = true fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/views/frontend/reservation.jsp(468,1) name = name type = java.lang.String reqTime = true required = true fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_tiles_005fputAttribute_005f0.setName("body");
     _jspx_th_tiles_005fputAttribute_005f0.setJspBody(new Helper( 1, _jspx_page_context, _jspx_th_tiles_005fputAttribute_005f0, null));
     _jspx_th_tiles_005fputAttribute_005f0.doTag();
@@ -612,7 +613,7 @@ public final class reservation_jsp extends org.apache.jasper.runtime.HttpJspBase
     org.apache.taglibs.standard.tag.rt.core.UrlTag _jspx_th_c_005furl_005f1 = (org.apache.taglibs.standard.tag.rt.core.UrlTag) _005fjspx_005ftagPool_005fc_005furl_0026_005fvalue_005fnobody.get(org.apache.taglibs.standard.tag.rt.core.UrlTag.class);
     _jspx_th_c_005furl_005f1.setPageContext(_jspx_page_context);
     _jspx_th_c_005furl_005f1.setParent(new javax.servlet.jsp.tagext.TagAdapter((javax.servlet.jsp.tagext.SimpleTag) _jspx_parent));
-    // /WEB-INF/views/frontend/reservation.jsp(480,13) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
+    // /WEB-INF/views/frontend/reservation.jsp(481,13) name = value type = null reqTime = true required = false fragment = false deferredValue = false expectedTypeName = null deferredMethod = false methodSignature = null
     _jspx_th_c_005furl_005f1.setValue("/resources/image/sports.jpg");
     int _jspx_eval_c_005furl_005f1 = _jspx_th_c_005furl_005f1.doStartTag();
     if (_jspx_th_c_005furl_005f1.doEndTag() == javax.servlet.jsp.tagext.Tag.SKIP_PAGE) {

@@ -18,15 +18,10 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 @Service
-@Transactional
 public class TimeIntervalServiceImpl implements TimeIntervalService {
 
 	@Autowired
 	private TimeIntervalDao timeIntervalDao;
-	
-	//@Autowired
-	//private CacheRecordService cacheRecordService; 
-	
 	
 	@Override
 	public void saveTimeInterval(TimeInterval timeInterval) {
@@ -57,8 +52,7 @@ public class TimeIntervalServiceImpl implements TimeIntervalService {
 	
 	@Override
 	public List getTimeIntervals() {
-		// TODO Auto-generated method stub
-					
+		// TODO Auto-generated method stub					
 		return (List) timeIntervalDao.findAll();
 	}
 	

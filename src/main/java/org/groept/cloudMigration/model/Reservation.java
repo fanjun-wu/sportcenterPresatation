@@ -21,7 +21,6 @@ public class Reservation
 
 	private String tips;
 	 
-	//@DBRef(lazy = true)
 	@DBRef(lazy = true)
 	private Subscriber subscriber;
 	 
@@ -160,17 +159,7 @@ public class Reservation
 		this.timeInterval.removeAll(newTimeInterval);	
 	}
 	
-	
- 
-	
-	
-	 
-	/*public void setSubscriber(Subscriber mySubscriber) {
-		this.basicSetSubscriber(mySubscriber);
-		mySubscriber.addReservation(this);	
-	}*/
-	
-	 
+		 
 	public void setSubscriber(Subscriber subscriber) {
 		this.subscriber = subscriber;
 	}
@@ -181,21 +170,9 @@ public class Reservation
 			this.timeInterval = new HashSet<TimeInterval>();
 		}
 		
-		timeInterval.add(newTimeInterval);
-		//newTimeInterval.addReservation(this);	
+		timeInterval.add(newTimeInterval);	
 	}
 	 
-	/*public void setCourt(Court myCourt) {
-		this.basicSetCourt(myCourt);
-		myCourt.addReservation(this);	
-	}*/
-	
-	 
-	
-	
-	
-	
-	
 	 
 	public void unsetDiscription() {
 		this.discription = "";	
@@ -237,10 +214,6 @@ public class Reservation
 		for(TimeInterval t:timeInterval)
 			timeInfo+=" "+t.toString();
 		System.out.println("show time: "+timeInfo+"  ");
-//		if(subscriber!=null)
-//			System.out.println("show sub: "+subscriber.toString());
-//		else
-//			System.out.println("null sub");
 		String res=court.getHall().getName()+" "+court.getName()+" "+timeInfo+"  ";
 		
 		return res;

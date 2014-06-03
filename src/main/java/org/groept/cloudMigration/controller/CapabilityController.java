@@ -41,8 +41,6 @@ public class CapabilityController {
 		logger.info("Listing capabilities.");		
 		
 		System.out.println("controller capability list()");
-		
-				
 		Collection<Capability> capabilities = capabilityService.getCapabilities();
 		Map<String,Object>model = new HashMap<String,Object>();
 		model.put("capabilities", capabilities);
@@ -90,9 +88,6 @@ public class CapabilityController {
 	public String createCapability(@ModelAttribute("capability") Capability capability,
 			BindingResult result, Model model) {
 		logger.info("Save capability instance");
-		
-		System.out.println("inside createCapability()");
-		System.out.println("get id: "+capability.getId());
 		
 		capabilityService.saveCapability(capability);
 		return "redirect:capabilityList";

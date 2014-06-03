@@ -23,7 +23,7 @@
 				</tr>
 				</thead>
 				<c:forEach items="${timeIntervals}" var="timeInterval">
-					<tr class="hoverable" id="id${timeInterval.id}" onClick="document.location.href = 'getTimeInterval?timeIntervalId=${timeInterval.id}';">
+					<tr class="hoverable" id="id${timeInterval.id}" <%-- onClick="document.location.href = 'getTimeInterval?timeIntervalId=${timeInterval.id}';" --%>>
 						<td>${timeInterval.startTime}</td>
 						<td>${timeInterval.date}</td>
 						<td><a href="reservationAddTime?reservationId=${reservation.id}&timeIntervalId=${timeInterval.id}">Add</a></td>

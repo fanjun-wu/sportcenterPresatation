@@ -6,44 +6,48 @@
 	<tiles:putAttribute name="body">
 		<div class="body">
 
-
-
 	<jsp:include page="/WEB-INF/views/includes/header.jsp" />
-
+	<body>
 	<jsp:include page="/WEB-INF/views/includes/logo.jsp" />
 	
 	
 		<div>
 
-			<h1>TimeInterval List</h1>
+			<h1>Admin List</h1>
 
 			<table id="hovertable" class="hoverable">
 				<thead>
 				<tr>
-					<th>Start Time</th>
-					<th>Date</th>
+					<th>Admin Name</th>
+					<th>Email</th>
+					<th>Telephone</th>
+					<th>Gender</th>
+					<th>Age</th>
 					
 					
 				</tr>
 				</thead>
-				<c:forEach items="${timeIntervals}" var="timeInterval">
-					<tr class="hoverable" id="id${timeInterval.id}" onClick="document.location.href = 'getTimeInterval?timeIntervalId=${timeInterval.id}';">
-						<td>${timeInterval.startTime}</td>
-						<td>${timeInterval.date}</td>
+				<c:forEach items="${admins}" var="admin">
+					<tr class="hoverable" id="id${admin.id}" onClick="document.location.href = 'getAdmin?adminId=${admin.id}';">
+						<td>${admin.name}</td>
+						<td>${admin.email}</td>
+						<td>${admin.telephone}</td>
+						<td>${admin.gender}</td>
+						<td>${admin.age}</td>
+						<td><a href="AdminLink?hallId=${hallId}&adminId=${admin.id}">Set</a></td>
 					
 						
 					</tr>
 				</c:forEach>
 			</table>
 			<br/>
-			<a href="newTimeInterval">Add TimeInterval</a>
+			
 
 			<jsp:include page="/WEB-INF/views/includes/footer.jsp" />
 
 		 </div>
-
-
-</div>
+	 
+	 		</div>
 
 	</tiles:putAttribute>
 </tiles:insertDefinition>

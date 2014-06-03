@@ -30,18 +30,6 @@ public class Hall
 	
 	private String introduction;
 	
-	
-	
-
-	/*@Override
-	public String toString() {
-		return "Hall [id=" + id + ", name=" + name + ", openTime=" + openTime
-				+ ", closeTime=" + closeTime + ", introduction=" + introduction
-				+ ", admin=" + admin + ", courts=" + courts + "]";
-	}*/
-	
-	
-
 
 	public Hall(String name, int openTime, int closeTime, String introduction) {
 		
@@ -50,17 +38,6 @@ public class Hall
 		this.closeTime = closeTime;
 		this.introduction = introduction;
 	}
-
-
-
-
-	@DBRef(lazy=true)
-	private Admin admin;
-	
-	/*@DBRef
-	private List<Court> courts ;*/
-	
-	
 	
 
 	public String getName() {
@@ -104,134 +81,9 @@ public class Hall
 	}
 
 
-	
-	
-
 	public Hall(){
 		
 	}
 
-
-	public void basicSetAdmin(Admin myAdmin) {
-		if (this.admin != myAdmin) {
-			if (myAdmin != null){
-				if (this.admin != myAdmin) {
-					Admin oldadmin = this.admin;
-					this.admin = myAdmin;
-					if (oldadmin != null)
-						oldadmin.unsetHall();
-				}
-			}
-		}	
-	}
-	
-	
-
-	public void setAdmin(Admin admin) {
-		this.admin = admin;
-	}
-
-	public Admin getAdmin() {
-		return this.admin;	
-	}
-	
-	
-	/*public List<Court> getCourts() {
-		if(this.courts == null) {
-			this.courts = new ArrayList<Court>();
-	}
-		return courts;
-	}
-
-	public void setCourts(List<Court> courts) {
-		this.courts = courts;
-	}
-
-	public List<Court> getCourt() {
-		if(this.courts == null) {
-				this.courts = new ArrayList<Court>();
-		}
-		return (List<Court>) this.courts;	
-	}
-	
-	
-	public void addAllCourt(List<Court> newCourt) {
-		if (this.courts == null) {
-			this.courts = new ArrayList<Court>();
-		}
-		for (Court tmp : newCourt)
-			tmp.setHall(this);
-			
-	}
-	
-	public void removeAllCourt(List<Court> newCourt) {
-		if(this.courts == null) {
-			return;
-		}
-		
-		this.courts.removeAll(newCourt);	
-	}
-	
-	
-
-	
-	
-	
-	public void addCourt(Court newCourt) {
-		if(this.courts == null) {
-			this.courts = new ArrayList<Court>();
-			System.out.println(newCourt.getName());
-			System.out.println("null");
-		}
-		System.out.println("fdsl");
-		if (this.courts.add(newCourt))
-		{
-		//newCourt.basicSetHall(this);
-			System.out.println("set");
-		}
-	}
-	
-	
-	*/
-	
-
-	
-	
-/*public void setAdmin(Admin myAdmin) {
-		this.basicSetAdmin(myAdmin);
-		myAdmin.basicSetHall(this);
-			
-	}*/
-
-	public void unsetAdmin() {
-		if (this.admin == null)
-			return;
-		Admin oldadmin = this.admin;
-		this.admin = null;
-		oldadmin.unsetHall();	
-	}
-	
-	
-	/*public void removeCourt(Court oldCourt) {
-		if(this.courts == null)
-			return;
-		
-		if (this.courts.remove(oldCourt));
-			oldCourt.unsetHall();
-			
-	}*/
-
-	
-	/*@SuppressWarnings("null")
-	public List<Court> getCourt() {
-		
-		MongoTemplate mongoTemplate = null;
-		Query query = new Query(Criteria.where("hall").is(this));
-		
-		
-		
-		return mongoTemplate.find(query, Court.class);
-	}*/
-	
 }
 

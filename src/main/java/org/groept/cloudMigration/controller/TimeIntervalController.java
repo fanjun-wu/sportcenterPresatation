@@ -28,15 +28,11 @@ private static final Logger logger = LoggerFactory.getLogger(TimeIntervalControl
 	
 	private TimeIntervalService timeIntervalService;
 	
-	//@Autowired
-	///private CacheRecordService cacheRecordService; 
 	
 	
 	@RequestMapping(value="/timeIntervalList", method=RequestMethod.GET)
 	public ModelAndView list() {
 		logger.info("Listing timeIntervals.");
-		
-		
 		Collection<TimeInterval> timeIntervals = timeIntervalService.getTimeIntervals();
 		Map<String,Object>model = new HashMap<String,Object>();
 		model.put("timeIntervals", timeIntervals);

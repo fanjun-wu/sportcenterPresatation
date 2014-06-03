@@ -33,27 +33,15 @@ private static final Logger logger = LoggerFactory.getLogger(SubscriberControlle
 	private SubscriberService subscriberService;
 	@Autowired
 	private ReservationService reservationService;
-//	@Autowired
-//	private CacheRecordService cacheRecordService; 
-	
-	
-
-	
 	
 	@RequestMapping(value="/subscriberList", method=RequestMethod.GET)
 	public ModelAndView list() {
 		logger.info("Listing subscribers.");
-		
-		
 		Collection<Subscriber> subscribers = subscriberService.getSubscribers();
 		Map<String,Object>model = new HashMap<String,Object>();
 		model.put("subscribers", subscribers);
 		return new ModelAndView("subscriber/subscriberList", model);
 	}
-	
-	
-	
-	
 	
 
 	@RequestMapping(value="/getSubscriber", method=RequestMethod.GET)
@@ -127,8 +115,6 @@ private static final Logger logger = LoggerFactory.getLogger(SubscriberControlle
 		return new ModelAndView("subscriber/newReservationforPerson", model);
 	}
 	
-	
-	//@RequestParam("reservationId") ObjectId reservationId,
 	
 	@RequestMapping(value="/addReservationforPerson", method=RequestMethod.POST)
 	public String createReservation(@RequestParam("subscriberId") ObjectId subscriberId, @ModelAttribute("reservation") Reservation reservation,

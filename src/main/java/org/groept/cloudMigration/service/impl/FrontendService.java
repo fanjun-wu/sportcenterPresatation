@@ -75,7 +75,7 @@ public class FrontendService {
 		
 		for(Capability cap:capabilitiesTemp)
 		{
-			//didn't show the court info, because if yes, there is an json .... error in this case????  
+  
 			capabilities.add(new Capability(cap.getResource(),cap.getConditionCap(),cap.getDiscriptionCap()));
 			
 		}		
@@ -200,13 +200,10 @@ public class FrontendService {
 			Set<Integer> _startTimeSetLeftSingleCourt=new HashSet<Integer>();				
 			
 			//get all the reservation for that court in that day and manipulate the start time Set			
-			
-	//		System.out.println("ct getReservation() size(): "+ct.getReservation().size());			
 			if(courtService.listofReservations(ct.getId()).size()!=0)
 				for(Reservation res: courtService.listofReservations(ct.getId()))
 				{
 
-//					System.out.println("getTimeInterval() size: "+res.getTimeInterval().toString());
 					for(TimeInterval tvl:res.getTimeInterval())
 					{
 						if( compareTwoDate(tvl.getDate(),serviceVariabales.getDateSelected()))
@@ -237,7 +234,7 @@ public class FrontendService {
 				System.out.println("-->  "+element);
 			}
 
-System.out.println("_startTimeSetAvailable size: "+serviceVariabales.get_startTimeSetAvailable().size());
+		System.out.println("_startTimeSetAvailable size: "+serviceVariabales.get_startTimeSetAvailable().size());
 		
 		List<Integer> listTemp=new ArrayList<Integer>();
 		for(Integer itg:serviceVariabales.get_startTimeSetAvailable())
@@ -250,14 +247,21 @@ System.out.println("_startTimeSetAvailable size: "+serviceVariabales.get_startTi
 	
 	
 	public boolean compareTwoDate(Date d1,Date d2)
-	{
-		
-		System.out.println("Compare details: "+d1.getYear()+" "+d2.getYear()+", "+d1.getMonth()+" "+d2.getMonth()+", "+d1.getDay()+" "+d2.getDay());
-		
-		if(d1.getYear()==d2.getYear()&&d1.getMonth()==d2.getMonth()&&d1.getDay()==d2.getDay())
-			return true;
+	{	if(d1!=null&&d2!=null)
+		{
+			if(d1.getYear()==d2.getYear()&&d1.getMonth()==d2.getMonth()&&d1.getDay()==d2.getDay())
+				return true;
+			else
+				return false;
+			
+		}
 		else
+		{
+			System.out.println("null in compareTwoDate(d1,d2)");
 			return false;
+		}
+			
+		
 	}
 	
 	
@@ -322,21 +326,13 @@ System.out.println("_startTimeSetAvailable size: "+serviceVariabales.get_startTi
 				}
 				
 				System.out.println("available halls size: "+serviceVariabales.get_hallsAvailable().size());
-			
-				
-
-				
-		Set<Hall> hallTemp=new HashSet<Hall>();		
+			Set<Hall> hallTemp=new HashSet<Hall>();		
 		for(Hall ha:serviceVariabales.get_hallsAvailable())		
 		{
 			hallTemp.add(new Hall(ha.getName(),ha.getOpenTime(),ha.getCloseTime(),ha.getIntroduction()));			
 		}	
-		
-
-		
+			
 		System.out.println("available halls size: "+hallTemp.iterator().next().getName());
-		//don't return _hallsAvailable directly, throw away the relations here, 
-		//just the hall info is needed, if not, we will get the json serialize error
 		return hallTemp;
 
 	}
@@ -363,8 +359,8 @@ System.out.println("_startTimeSetAvailable size: "+serviceVariabales.get_startTi
 			}			
 		}
 	
-		/*for(Court ct:hallTemp.getCourt())*/		
-			for(Court ct:hallService.listofCourts(hallTemp.getId()))
+			
+		for(Court ct:hallService.listofCourts(hallTemp.getId()))
 		{
 				
 			Set<Integer> startTimeReservedSingleCourt=new HashSet<Integer>();
@@ -395,15 +391,11 @@ System.out.println("_startTimeSetAvailable size: "+serviceVariabales.get_startTi
 					
 					
 				}
-			
-			
 				
 			}
 					
 			
 		}
-		
-		
 			
 		Set<Court> courtTemp=new HashSet<Court>();
 		courtTemp.clear();
@@ -432,8 +424,7 @@ System.out.println("_startTimeSetAvailable size: "+serviceVariabales.get_startTi
 	{				
 		String[] userInfoTemp=user.split(","); 
 		
-		serviceVariabales.get_subscriber();
-		
+		serviceVariabales.get_subscriber();		
 		serviceVariabales.get_subscriber().setName(userInfoTemp[0]);
 		serviceVariabales.get_subscriber().setEmail(userInfoTemp[1]);
 		serviceVariabales.get_subscriber().setTelephone(userInfoTemp[2]);
@@ -451,14 +442,12 @@ System.out.println("_startTimeSetAvailable size: "+serviceVariabales.get_startTi
 	
 	public void saveReservation(String name, String key,String email)
 	{
-		//serviceVariabales
-		
+		//serviceVariabales		
 		subscriberService.saveSubscriber(serviceVariabales.get_subscriber());
 		TimeInterval tal=new TimeInterval(Integer.parseInt(serviceVariabales.get_startTimeRecieved()),serviceVariabales.getDateSelected());
 		Set<TimeInterval> tals=new HashSet<TimeInterval>();
 		tals.add(tal);
 		timeIntervalService.saveTimeSet(tals);
-				
 		
 		int startTimeRecieved = Integer.parseInt(serviceVariabales.get_startTimeRecieved());
 		Reservation res=new Reservation();
@@ -469,14 +458,9 @@ System.out.println("_startTimeSetAvailable size: "+serviceVariabales.get_startTi
 		res.setTimeInterval(tals);
 		
 		tal.addReservation(res);
-		reservationService.saveReservation(res);
-		
-		timeIntervalService.saveTimeInterval(tal);
-		
-		sendEmailSendGrid(name,key,email);
-		//for testing below
-		//sendEmailSendGrid("conna","0132165464648546","lihuachenchen0725@gmail.com");
-		
+		reservationService.saveReservation(res);		
+		timeIntervalService.saveTimeInterval(tal);		
+		sendEmailSendGrid(name,key,email);		
 	}
 	
 	
@@ -488,34 +472,22 @@ System.out.println("_startTimeSetAvailable size: "+serviceVariabales.get_startTi
 		serviceVariabales.setEmailTo(email);
 		
 		SendGrid sendgrid = new SendGrid("cloudbees_fanjun-wu","kgdssm123");
-	
-		String emailContent00="Hello, "+name+", your reservation is successful: " +"Sports: "+serviceVariabales.getSportsName()+", Date: "+serviceVariabales.getSportsDate()+
+		
+		String emailContent="Hello, "+name+", your reservation is successful: " +"Sports: "+serviceVariabales.getSportsName()+", Date: "+serviceVariabales.getSportsDate()+
 	    		   ", Start Time: "+serviceVariabales.getSportsTime()+", Hall: "+serviceVariabales.getSportsHall()+
 	    		   ", Court: "+serviceVariabales.getSportsCourt()+";"+"  If you want to cancel it, go to your reservation page: "+
 	    				   serviceVariabales.getURLContex()+"login/user-name/"+name+"/user-authen-key/"+key;
-	    
-		
-		String emailContent="<div style='background-color:#FFFF99'>"
-				+ "<h3>Hello, "+name+", your reservation is successful: </h3>" +"</br><h2>Sports: "+serviceVariabales.getSportsName()+", Date: "+serviceVariabales.getSportsDate()+
-	    		   ", Start Time: "+serviceVariabales.getSportsTime()+", Hall: "+serviceVariabales.getSportsHall()+
-	    		   ", Court: "+serviceVariabales.getSportsCourt()+";</h2>"+" <h1></h1>If you want to cancel it, go to your reservation page: </br>"+
-	    				   serviceVariabales.getURLContex()+"login/user-name/"+name+"/user-authen-key/"+key
-	    				   +"</div>"+"<div><h3>see you soon!</h3></div>"
-	    	               ;
-	    
+	  
 		
 		sendgrid.addTo(serviceVariabales.getEmailTo());
 		sendgrid.setFrom(serviceVariabales.getEmailFrom());
 		sendgrid.setSubject(serviceVariabales.getEmailSubject());
 		
-		//sendgrid.setText(emailContent);
-	
-		sendgrid.setHtml(emailContent);
+		sendgrid.setText(emailContent);
 		
 		sendgrid.send();
 		
 		System.out.println("finish sending ...");
-		
 		
 	}
 	
@@ -538,18 +510,13 @@ System.out.println("_startTimeSetAvailable size: "+serviceVariabales.get_startTi
 			
 			
 			for(Court c:hallService.listofCourts(hall1.getId()))
-			//for(Court c:hall1.getCourts())
-			{
 				courts.add(c);				
-			}
 		
 			//order: from small to big 
 			Collections.sort(courts, new CourtComparator());
 			
-			for(Court c:courts)
-				
+			for(Court c:courts)				
 				System.out.println(c.toString());
-			
 			
 		}
 		
@@ -559,7 +526,6 @@ System.out.println("_startTimeSetAvailable size: "+serviceVariabales.get_startTi
 			
 			for(Reservation res:(List <Reservation>) reservationService.getReservations())	
 			{
-			//	System.out.println("***** "+res.toString());
 				
 				Set<TimeInterval> timeIntervals=res.getTimeInterval();
 				for(TimeInterval tim:timeIntervals)
@@ -569,13 +535,12 @@ System.out.println("_startTimeSetAvailable size: "+serviceVariabales.get_startTi
 		
 					Calendar calNow = new GregorianCalendar(TimeZone.getTimeZone("Europe/Brussels"));
 					
-					
-				//	System.out.println("Todat Test: "+cal.get(Calendar.YEAR)+", "+cal.get(Calendar.MONTH)+", "+cal.get(Calendar.DAY_OF_MONTH));
-					
-					
 					Calendar calReserved = Calendar.getInstance();
-					calReserved.setTime(tim.getDate());
+			
+					if(tim.getDate()!=null)
+					{
 					
+					calReserved.setTime(tim.getDate());
 					
 					//if(compareTwoDate(tim.getDate(),today))
 					if((calNow.get(Calendar.YEAR)==calReserved.get(Calendar.YEAR))&&(calNow.get(Calendar.MONTH)==calReserved.get(Calendar.MONTH))&&(calNow.get(Calendar.DAY_OF_MONTH)==calReserved.get(Calendar.DAY_OF_MONTH)))
@@ -587,7 +552,14 @@ System.out.println("_startTimeSetAvailable size: "+serviceVariabales.get_startTi
 				    			reservationsNow.add(res);
 				    			System.out.println("we find a new reservation, size: "+reservationsNow.size());
 						}
-					}					
+					}
+
+					}
+					
+					else
+						System.out.println("tim.getDate() is null");
+					
+					
 				}				
 			}	
 				
@@ -609,8 +581,7 @@ System.out.println("_startTimeSetAvailable size: "+serviceVariabales.get_startTi
 				{
 					i++;
 					reservationStatus.add(1);
-					System.out.println("reserved");
-					
+					System.out.println("reserved");					
 				}
 				
 			}
@@ -671,7 +642,6 @@ System.out.println("_startTimeSetAvailable size: "+serviceVariabales.get_startTi
 	public void cleanVaribalesAfterSubmit()
 	{
 		System.out.println("clean all after you reserve successfully!");
-		
 		
 		serviceVariabales.set_capability(new Capability());
 		serviceVariabales.get_allCourtsThisCap().clear();
@@ -776,9 +746,6 @@ System.out.println("_startTimeSetAvailable size: "+serviceVariabales.get_startTi
 		}
 		return date;		
 	}
-	
-	
-	
 	
 
 }

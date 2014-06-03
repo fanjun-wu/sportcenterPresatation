@@ -17,17 +17,12 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 @Service
-@Transactional
 public class SubscriberServiceImpl implements SubscriberService {
 
 	@Autowired
 	private SubscriberDao subscriberDao;
 	@Autowired
 	private ReservationDao reservationDao;
-	//@Autowired
-	//private CacheRecordService cacheRecordService; 
-	
-	
 	
 	@Override
 	public void saveSubscriber(Subscriber subscriber) {
@@ -39,8 +34,7 @@ public class SubscriberServiceImpl implements SubscriberService {
 		// TODO Auto-generated method stub
 		
 		Set<Reservation> res=subscriberDao.findById(subscriber.getId()).getReservation();
-		subscriber.setReservation(res);
-		
+		subscriber.setReservation(res);		
 		subscriberDao.save(subscriber);
 	}
 
@@ -71,7 +65,6 @@ public class SubscriberServiceImpl implements SubscriberService {
 		
 		s.addReservation(reservation);
 		reservation.setSubscriber(s);
-		
 		
 		reservationDao.save(reservation);
 		

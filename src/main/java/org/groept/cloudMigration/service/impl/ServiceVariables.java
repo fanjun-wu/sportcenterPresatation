@@ -19,10 +19,8 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope("prototype")
 public class ServiceVariables {
-
 	
-	//private String URLContex="http://localhost:8080/springsportscenter-mongo/";	
-	private String URLContex="http://springsportscenter-cloudmigration.rhcloud.com/";	
+	private String URLContex="http://springsportscenter-2.fanjun-wu.eu.cloudbees.net/";	
 	private String emailFrom="noreply@springsportscenter.be";
 	private String emailSubject="Spring Sports Center Reservation";		
 	private String emailTo=null;

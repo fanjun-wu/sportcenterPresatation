@@ -26,7 +26,7 @@
 				</thead>
 				<c:forEach items="${reservations}" var="reservation">
 					 <c:if test="${reservation.subscriber.id == subscriber.id}"> 
-					<tr class="hoverable" id="id${reservation.id}" onClick="document.location.href = 'getReservation?reservationId=${reservation.id}';">
+					<tr class="hoverable" id="id${reservation.id}" <%-- onClick="document.location.href = 'getReservation?reservationId=${reservation.id}';" --%>>
 						<td>${reservation.discription}</td>
 						<td>${reservation.tips}</td>
 						<td>${reservation.subscriber.name}</td>

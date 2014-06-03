@@ -24,7 +24,6 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 @Service
-@Transactional
 public class CapabilityServiceImpl  implements CapabilityService{
 
 	
@@ -43,6 +42,7 @@ public class CapabilityServiceImpl  implements CapabilityService{
 		// TODO Auto-generated method stub
 		capabilityDao.save(capability);
 	}
+	
 	@CacheEvict(value = "capabilities",key = "new String(#capability.id).concat('.Capability')")
 	@Override
 	public void editCapability(Capability capability) {
@@ -84,12 +84,12 @@ public class CapabilityServiceImpl  implements CapabilityService{
 
 	@Override
 	public List getCapabilities() {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub		
 		System.out.println("getCapabilities()");
 		
 		return (List) capabilityDao.findAll();
 	}
+	
 	
 	public List<Court> getCourts(ObjectId capId)
 	{
@@ -110,7 +110,6 @@ public class CapabilityServiceImpl  implements CapabilityService{
 			
 		}
 		return c;
-
-		
+	
 	}
 }

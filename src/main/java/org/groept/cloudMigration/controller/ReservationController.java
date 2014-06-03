@@ -38,9 +38,6 @@ private static final Logger logger = LoggerFactory.getLogger(ReservationControll
 	private TimeIntervalService timeIntervalService;
 	@Autowired
 	private SubscriberService subscriberService;
-	//@Autowired
-	//private CacheRecordService cacheRecordService; 
-	
 	
 	@RequestMapping(value="/reservationList", method=RequestMethod.GET)
 	public ModelAndView list() {

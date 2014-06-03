@@ -19,16 +19,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional
 public class ReservationServiceImpl implements ReservationService{
 
 	@Autowired
 	private ReservationDao reservationDao;
 	@Autowired
 	private TimeIntervalDao timeIntervalDao;
-	//@Autowired
-	//private CacheRecordService cacheRecordService; 
-	
 	
 	
 	@Override
@@ -76,17 +72,10 @@ public class ReservationServiceImpl implements ReservationService{
 	{
 		TimeInterval t=timeIntervalDao.findById(tId);
 		Reservation r=reservationDao.findById(rId);
-				
-		
-		r.addTimeInterval(t);
-		
-		t.addReservation(r);
-		
-		
+		r.addTimeInterval(t);	
+		t.addReservation(r);		
 		saveReservation(r);
 		timeIntervalDao.save(t);
-		
-		
 		
 	}
 }

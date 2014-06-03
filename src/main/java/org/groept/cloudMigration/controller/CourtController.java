@@ -35,7 +35,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/admin")
 public class CourtController {
 
-private static final Logger logger = LoggerFactory.getLogger(CourtController.class);
+	private static final Logger logger = LoggerFactory.getLogger(CourtController.class);
 	
 	private CourtService courtService;
 	
@@ -52,7 +52,6 @@ private static final Logger logger = LoggerFactory.getLogger(CourtController.cla
 	public ModelAndView list() {
 		logger.info("Listing courts.");
 		
-		
 		Collection<Court> courts = courtService.getCourts();
 		Map<String,Object>model = new HashMap<String,Object>();
 		model.put("courts", courts);
@@ -60,18 +59,12 @@ private static final Logger logger = LoggerFactory.getLogger(CourtController.cla
 	}
 	
 	
-	
-	
-	
 
 	@RequestMapping(value="/getCourt", method=RequestMethod.GET)
 	public ModelAndView fetchCourt(@RequestParam("courtId") ObjectId courtId) {
 		logger.info("Fetching court " + courtId);
-		
-
-		CacheRecord cacheRecord=new CacheRecord(1,0,new java.util.Date());
+			CacheRecord cacheRecord=new CacheRecord(1,0,new java.util.Date());
 		cacheRecordService.saveCacheRecord(cacheRecord);
-		
 		
 		Court court = courtService.getCourt(courtId);
 		Map<String,Object>modelAndView = new HashMap<String,Object>();
@@ -152,16 +145,6 @@ private static final Logger logger = LoggerFactory.getLogger(CourtController.cla
 	public ModelAndView caplist(@RequestParam("courtId") ObjectId courtId) {
 		logger.info("Listing capabilities.");
 		Collection<Capability> capabilities = capabilityService.getCapabilities();
-		/*Court c =courtService.getCourt(courtId);
-		
-		for(Capability cap: capabilities)
-		{
-			if(c.getCapabilitiesName().contains(cap.getResource()))
-			{
-				capabilities.remove(cap);
-			}
-		}*/
-		
 		
 		Map<String,Object>model = new HashMap<String,Object>();
 		model.put("courtId",courtId);
@@ -182,22 +165,15 @@ private static final Logger logger = LoggerFactory.getLogger(CourtController.cla
 		cap.getCourts().add(c.getId());
 		c.getCapabilities().add(cap.getId());
 		
-		  Query query = new Query(Criteria.where("id").is(c.getId()));
-		  Update update=new Update();
-		  update.set("capabilities", c.getCapabilities());
-		  mongoTemplate.updateFirst(query, update, Court.class);
+		Query query = new Query(Criteria.where("id").is(c.getId()));
+		Update update=new Update();
+		update.set("capabilities", c.getCapabilities());
+		mongoTemplate.updateFirst(query, update, Court.class);
 		  
-		  Query query2 = new Query(Criteria.where("id").is(cap.getId()));
-		  Update update2=new Update();
-		  update2.set("courts", cap.getCourts());
-		  mongoTemplate.updateFirst(query2, update2, Capability.class);
-		  
-		/*c.addCapability(cap);
-		cap.addCourt(c);
-		
-		courtService.saveCourt(c);
-		capabilityService.saveCapability(cap);*/
-		
+		Query query2 = new Query(Criteria.where("id").is(cap.getId()));
+		Update update2=new Update();
+		update2.set("courts", cap.getCourts());
+		mongoTemplate.updateFirst(query2, update2, Capability.class);
 		
 		return "redirect:courtList";
 	}
@@ -209,6 +185,8 @@ private static final Logger logger = LoggerFactory.getLogger(CourtController.cla
 	public void setCourtService(CourtService courtService) {
 		this.courtService = courtService;
 	}
+	
+	
 	@Autowired
 	public void setCapabilityService(CapabilityService capabilityService) {
 		this.capabilityService = capabilityService;

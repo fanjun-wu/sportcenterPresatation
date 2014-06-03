@@ -131,9 +131,7 @@ public final class timeIntervalList_jsp extends org.apache.jasper.runtime.HttpJs
           out.write("\r\n");
           out.write("\t\t\t\t\t<tr class=\"hoverable\" id=\"id");
           out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${timeInterval.id}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
-          out.write("\" onClick=\"document.location.href = 'getTimeInterval?timeIntervalId=");
-          out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${timeInterval.id}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
-          out.write("';\">\r\n");
+          out.write("\">\r\n");
           out.write("\t\t\t\t\t\t<td>");
           out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate("${timeInterval.startTime}", java.lang.String.class, (PageContext)_jspx_page_context, null, false));
           out.write("</td>\r\n");

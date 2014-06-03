@@ -28,7 +28,7 @@
 				</tr>
 				</thead>
 				<c:forEach items="${subscribers}" var="subscriber">
-					<tr class="hoverable" id="id${subscriber.id}" onClick="document.location.href = 'getSubscriber?subscriberId=${subscriber.id}';">
+					<tr class="hoverable" id="id${subscriber.id}" <%-- onClick="document.location.href = 'getSubscriber?subscriberId=${subscriber.id}';" --%>>
 						<td>${subscriber.name}</td>
 						<td>${subscriber.email}</td>
 						<td>${subscriber.telephone}</td>

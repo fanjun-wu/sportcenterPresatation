@@ -20,7 +20,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional
 public class AdminServiceImpl implements AdminService {
 
 	@Autowired
@@ -50,7 +49,6 @@ public class AdminServiceImpl implements AdminService {
 		  update.set("age", admin.getAge());
 		  update.set("privilege", admin.getPrivilege());
 		  mongoTemplate.updateFirst(query, update, Admin.class);
-		
 	
 	}
 
@@ -67,11 +65,10 @@ public class AdminServiceImpl implements AdminService {
 	}
 	
 	@Override
-	public List getAdmins() {
+	public List<Admin> getAdmins() {
 		// TODO Auto-generated method stub
 		
-		
-		return (List) adminDao.findAll();
+		return (List<Admin>) adminDao.findAll();
 	}
 
 	
