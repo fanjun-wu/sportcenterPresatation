@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class ServiceVariables {
 	
-	private String URLContex="http://springsportscenter-2.fanjun-wu.eu.cloudbees.net/";	
+	private String URLContex="http://springsportscenter-4.fanjun-wu.eu.cloudbees.net/";	
 	private String emailFrom="noreply@springsportscenter.be";
 	private String emailSubject="Spring Sports Center Reservation";		
 	private String emailTo=null;
